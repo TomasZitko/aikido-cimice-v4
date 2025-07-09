@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Náš Tým Instruktorů - Ronin Dojo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-bg: #FFFFFF; /* Pure white */
+            --secondary-bg: #000000; /* Pure black */
+            --card-bg: #FFFFFF; /* Pure white */
+            --accent-color1: #000000; /* Pure black */
+            --accent-color2: #000000; /* Pure black */
+            --text-primary: #000000; /* Pure black */
+            --text-secondary: #000000; /* Pure black */
+            --border-color: #000000; /* Pure black */
+            --navbar-bg-transparent: rgba(255, 255, 255, 0.95);
+            --navbar-bg-scrolled: rgba(255, 255, 255, 0.98);
+            --button-hover-bg: #000000;
+            --white-ish: #FFFFFF;
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Montserrat', sans-serif;
+            --section-title-number-color: #000000;
+            --image-overlay-color: rgba(0, 0, 0, 0.5);
+            --glow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px; /* Increased padding */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            color: var(--text-primary);
+            margin-bottom: 1.5rem; /* Increased margin */
+            line-height: 1.3;
+            text-transform: uppercase; /* Martial feel */
+            letter-spacing: 0.15em;
+            font-weight: 300;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 {
+            font-size: 2.8rem; /* Larger section titles */
+            text-align: center;
+            margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-primary);
+        }
+        h2 .section-number {
+            font-size: 0.6em;
+            color: var(--accent-color1);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        h3 { font-size: 1.8rem; color: var(--accent-color1); }
+        h4 { font-size: 1.4rem; text-transform: none; letter-spacing: 0.5px;}
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        a {
+            color: var(--accent-color1);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color2);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px; /* Subtle radius */
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #000000;
+            color: #FFFFFF;
+            padding: 14px 30px; /* Larger buttons */
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-weight: 300;
+            font-family: var(--body-font);
+            letter-spacing: 0.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn:hover {
+            background-color: #000000;
+            opacity: 0.9;
+            transform: translateY(-3px);
+            color: var(--white-ish);
+            box-shadow: 0 0 20px var(--glow-color), 0 6px 20px rgba(0,0,0,0.4); /* Glow effect */
+        }
+        
+        .btn.learn-more-btn {
+            padding: 12px 24px;
+            font-size: 0.9rem;
+            margin-top: auto; /* Pushes button to the bottom */
+            align-self: flex-start; /* Aligns button to the left */
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #000000;
+            color: #000000;
+        }
+        .btn-secondary:hover {
+            background-color: #000000;
+            color: #FFFFFF;
+            box-shadow: 0 0 20px var(--glow-color), 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Team Section */
+        #team { background-color: #FFFFFF; }
+        .team-intro-text {
+            text-align: center;
+            max-width: 750px;
+            margin: -2rem auto 3.5rem auto;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 35px;
+        }
+        .trainer-card {
+            background-color: var(--card-bg);
+            padding: 0;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.4s ease;
+        }
+        .trainer-card:hover {
+             transform: translateY(-8px);
+             box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+        }
+        .trainer-image-container {
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+        }
+        .trainer-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+            margin-bottom: 0;
+            border: none;
+            transition: transform 0.4s ease, filter 0.4s ease;
+            filter: grayscale(50%);
+        }
+        .trainer-card:hover .trainer-image-container img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+        .trainer-image-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+            z-index: 1;
+        }
+        .trainer-info {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .trainer-card h4 {
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+        .trainer-card .trainer-role {
+            font-size: 0.95rem;
+            color: var(--accent-color1);
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            body { font-size: 15px; }
+            .container { padding: 50px 15px; }
+        }
+
+        @media (max-width: 480px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Helper to get RGB for variables (used in rgba) */
+        :root {
+            --accent-color1-rgb: 0, 0, 0;
+            --card-bg-rgb: 255, 255, 255;
+        }
+    </style>
+</head>
+<body>
+    <section id="team" data-aos="fade-up">
+        <div class="container">
+            <h2><span class="section-number">03</span>Náš Tým Instruktorů</h2>
+            <p class="team-intro-text">Seznamte se s našimi zkušenými instruktory, kteří vás provedou světem aikido s trpělivostí, odborností a vášní pro toto umění.</p>
+            <div class="team-grid">
+                <div class="trainer-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="trainer-image-container">
+                        <img src="https://i.postimg.cc/853xNdk9/martin-v1.jpg" alt="Instruktor Jan Novák">
+                    </div>
+                    <div class="trainer-info">
+                        <h4>Sensei Martin Snopek</h4>
+                        <p class="trainer-role">Hlavní instruktor, 5. Dan </p>
+                    </div>
+                </div>
+                <div class="trainer-card" data-aos="fade-up" data-aos-delay="200">
+                     <div class="trainer-image-container">
+                        <img src="https://i.postimg.cc/VkWynb40/Jonas.jpg" alt="Instruktorka Petra Svobodová">
+                    </div>
+                    <div class="trainer-info">
+                        <h4>Jonáš Baldík</h4>
+                        <p class="trainer-role">Instruktor, 3. Dan </p>
+                    </div>
+                </div>
+                <div class="trainer-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="trainer-image-container">
+                        <img src="https://i.postimg.cc/gr9JX6sB/stepan.jpg" alt="Instruktor Martin Dvořák">
+                    </div>
+                    <div class="trainer-info">
+                        <h4>Štěpán Benca</h4>
+                        <p class="trainer-role">Instruktor dětských kurzů, 2. Dan </p>
+                    </div>
+                </div>
+                <div class="trainer-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="trainer-image-container">
+                        <img src="https://i.postimg.cc/m2bZqRq9/krystof.jpg" alt="Instruktorka Eva Králová">
+                    </div>
+                    <div class="trainer-info">
+                        <h4>Kryštof </h4>
+                        <p class="trainer-role">Asistentka instruktora, 1. Dan </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        once: true,
+        duration: 700,
+        easing: 'ease-out-cubic',
+        disable: function() {
+          return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+      });
+    </script>
+</body>
+</html> 

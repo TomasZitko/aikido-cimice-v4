@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section - Ronin Dojo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-bg: #FFFFFF; /* Pure white */
+            --secondary-bg: #000000; /* Pure black */
+            --card-bg: #FFFFFF; /* Pure white */
+            --accent-color1: #000000; /* Pure black */
+            --accent-color2: #000000; /* Pure black */
+            --text-primary: #000000; /* Pure black */
+            --text-secondary: #000000; /* Pure black */
+            --border-color: #000000; /* Pure black */
+            --navbar-bg-transparent: rgba(255, 255, 255, 0.95);
+            --navbar-bg-scrolled: rgba(255, 255, 255, 0.98);
+            --button-hover-bg: #000000;
+            --white-ish: #FFFFFF;
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Montserrat', sans-serif;
+            --section-title-number-color: #000000;
+            --image-overlay-color: rgba(0, 0, 0, 0.5);
+            --glow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px; /* Increased padding */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            color: var(--text-primary);
+            margin-bottom: 1.5rem; /* Increased margin */
+            line-height: 1.3;
+            text-transform: uppercase; /* Martial feel */
+            letter-spacing: 0.15em;
+            font-weight: 300;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 {
+            font-size: 2.8rem; /* Larger section titles */
+            text-align: center;
+            margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-primary);
+        }
+        h2 .section-number {
+            font-size: 0.6em;
+            color: var(--accent-color1);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        h3 { font-size: 1.8rem; color: var(--accent-color1); }
+        h4 { font-size: 1.4rem; text-transform: none; letter-spacing: 0.5px;}
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        a {
+            color: var(--accent-color1);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color2);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px; /* Subtle radius */
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #000000;
+            color: #FFFFFF;
+            padding: 14px 30px; /* Larger buttons */
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-weight: 300;
+            font-family: var(--body-font);
+            letter-spacing: 0.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn:hover {
+            background-color: #000000;
+            opacity: 0.9;
+            transform: translateY(-3px);
+            color: var(--white-ish);
+            box-shadow: 0 0 20px var(--glow-color), 0 6px 20px rgba(0,0,0,0.4); /* Glow effect */
+        }
+        
+        .btn.learn-more-btn {
+            padding: 12px 24px;
+            font-size: 0.9rem;
+            margin-top: auto; /* Pushes button to the bottom */
+            align-self: flex-start; /* Aligns button to the left */
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #000000;
+            color: #000000;
+        }
+        .btn-secondary:hover {
+            background-color: #000000;
+            color: #FFFFFF;
+            box-shadow: 0 0 20px var(--glow-color), 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Navbar - absolutely positioned at top of hero, not fixed */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem 0;
+            z-index: 1000;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .nav-logo,
+        .navbar .nav-link {
+            color: #fff;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.7), 0 0 2px #000;
+            font-family: var(--heading-font);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .nav-link.active,
+        .navbar .nav-link:hover {
+            color: #fff;
+            text-shadow: 0 2px 16px #fff, 0 0 2px #000;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            padding: 0.8rem 0;
+        }
+
+        .navbar.scrolled .nav-logo,
+        .navbar.scrolled .nav-link {
+            color: #fff;
+            text-shadow: none;
+        }
+
+        .navbar.scrolled .nav-link.active,
+        .navbar.scrolled .nav-link:hover {
+            color: #fff;
+            text-shadow: none;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .navbar-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-family: var(--heading-font);
+            letter-spacing: 0.5px;
+            padding: 8px 0;
+            position: relative;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .nav-link.active {
+            color: #fff;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white-ish);
+            font-size: 2rem; /* Larger toggle */
+            cursor: pointer;
+            z-index: 1001; /* Ensure it's above the menu */
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            background-color: #000000;
+            color: #FFFFFF;
+            background-image: url('https://i.postimg.cc/XJNd4YnC/hero-section.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 900px; /* Slightly wider */
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 7vw, 6rem); /* Responsive font size */
+            font-weight: 300;
+            color: var(--white-ish);
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.8); /* Stronger shadow */
+        }
+        .hero-subtitle {
+            font-family: var(--body-font);
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            color: var(--white-ish);
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.05em;
+            max-width: 700px;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.7);
+        }
+        .hero-hours-label {
+            font-family: var(--heading-font);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 500;
+            color: var(--white-ish);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .hero-hours {
+            font-family: var(--body-font);
+            color: var(--white-ish);
+            font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            line-height: 1.8;
+        }
+
+        /* Loading Screen Styles */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-logo {
+            width: 150px;
+            height: 150px;
+            animation: spin 2s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            color: #FFFFFF;
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            body { font-size: 15px; }
+            .container { padding: 50px 15px; }
+            .hero-subtitle { font-size: 1rem; }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                justify-content: center; /* Center links vertically */
+                width: 100vw; /* Full width */
+                height: 100vh; /* Full height */
+                position: fixed; /* Fixed to viewport */
+                top: 0;
+                left: 0;
+                padding: 2rem 0;
+                box-shadow: none;
+            }
+            
+            /* Mobile Nav Menu Background Change */
+            .nav-menu.active {
+                display: flex;
+                background-color: #000000; /* Solid black background */
+            }
+
+            .nav-item {
+                margin: 15px 0; /* More spacing */
+                text-align: center;
+                width: 100%;
+            }
+            .nav-link {
+                width: 100%;
+                display: block;
+                padding: 15px;
+                color: #FFFFFF !important; /* White text on black bg */
+                text-shadow: none;
+                font-size: 1.5rem;
+            }
+             .nav-link:hover, .nav-link.active {
+                 background-color: rgba(255, 255, 255, 0.1);
+                 color: #FFFFFF !important;
+             }
+            .nav-link::after { display: none; }
+
+            .nav-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 600px) {
+          .loading-screen {
+            min-height: 100vh;
+            min-width: 100vw;
+            padding: 0;
+            box-sizing: border-box;
+          }
+          .loading-logo {
+            width: 100px;
+            height: 100px;
+          }
+          .loading-text {
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 0 10px;
+          }
+        }
+
+        @media (max-width: 480px) {
+            .about-images {
+                flex-direction: column;
+            }
+            .about-images img {
+                height: 200px;
+            }
+            .trainings-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+            .pricing-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .pricing-item-name, .pricing-item-price {
+                flex-basis: auto;
+                text-align: left;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Helper to get RGB for variables (used in rgba) */
+        :root {
+            --accent-color1-rgb: 0, 0, 0;
+            --card-bg-rgb: 255, 255, 255;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <img src="https://i.postimg.cc/90JTbPSF/abc.png" alt="Loading Logo" class="loading-logo">
+        <div class="loading-text">Načítání</div>
+    </div>
+
+    <section id="hero" class="hero" data-aos="fade-up" data-aos-duration="900">
+        <nav class="navbar">
+            <div class="navbar-container">
+                <a href="Homepage.html" class="nav-logo">Ronin Dojo</a>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Menu Toggle">
+                    ☰
+                </button>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item"><a href="studovna.html" class="nav-link">Studovna</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">O nás</a></li>
+                    <li class="nav-item"><a href="#trainings" class="nav-link">Tréninky</a></li>
+                    <li class="nav-item"><a href="#team" class="nav-link">Tým</a></li>
+                    <li class="nav-item"><a href="#pricing" class="nav-link">Ceník</a></li>
+                    <li class="nav-item"><a href="#gallery" class="nav-link">Galerie</a></li>
+                    <li class="nav-item"><a href="#downloads" class="nav-link">Ke stažení</a></li>
+                    <li class="nav-item"><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="hero-content">
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">Ronin Dojo</h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">Cesta harmonie, síly a ducha. Objevte tradiční japonské bojové umění v srdci Prahy.</p>
+            <div class="hero-hours-label" data-aos="fade-up" data-aos-delay="300">Tréninkové Hodiny Klubu:</div>
+            <div class="hero-hours" data-aos="fade-up" data-aos-delay="400">
+                Pondělí - Pátek: 07:00 - 09:00 & 17:00 - 21:00<br>
+                Sobota - Neděle: 09:00 - 12:00 (Speciální semináře)
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        once: true,
+        duration: 700,
+        easing: 'ease-out-cubic',
+        disable: function() {
+          return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+      });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Loading screen
+        const loadingScreen = document.querySelector('.loading-screen');
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+            }, 1000);
+        });
+        
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile navigation toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            });
+            navMenu.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        navToggle.textContent = '☰';
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+        }
+    });
+    </script>
+</body>
+</html> 
