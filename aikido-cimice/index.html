@@ -1111,67 +1111,37 @@
         /* Loading Screen Styles */
         .loading-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000000;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease-out;
+            transition: opacity 0.4s;
         }
-
         .loading-screen.fade-out {
             opacity: 0;
             pointer-events: none;
         }
-
-        .loading-logo {
-            width: 150px;
-            height: 150px;
-            animation: spin 2s linear infinite;
-            margin-bottom: 20px;
+        .loading-bar-container {
+            width: 220px;
+            height: 12px;
+            background: #222;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 10px;
         }
-
-        .loading-text {
-            color: #FFFFFF;
-            font-family: var(--heading-font);
-            font-size: 1.5rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            animation: pulse 1.5s ease-in-out infinite;
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background: #fff;
+            border-radius: 6px;
+            transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
         }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-
         @media (max-width: 600px) {
-            .loading-screen {
-                min-height: 100vh;
-                min-width: 100vw;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            .loading-logo {
-                width: 100px;
-                height: 100px;
-            }
-            .loading-text {
-                font-size: 1.1rem;
-                text-align: center;
-                padding: 0 10px;
-            }
+            .loading-bar-container { width: 140px; height: 10px; }
+            .loading-logo { width: 80px !important; height: 80px !important; }
         }
 
         /* Mobile modal gallery functionality */
@@ -1434,19 +1404,20 @@
     </style>
 </head>
 <body>
-    <div class="loading-screen">
-        <img src="https://i.postimg.cc/90JTbPSF/abc.png" alt="Loading Logo" class="loading-logo">
-        <div class="loading-text">Načítání</div>
+    <div class="loading-screen" id="loading-screen">
+        <img src="https://i.postimg.cc/90JTbPSF/abc.png" alt="Loading Logo" class="loading-logo" style="width:120px;height:120px;margin-bottom:20px;">
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loading-bar"></div>
+        </div>
     </div>
-
     <header>
         <nav class="navbar" id="navbar">
             <div class="navbar-container">
-                <a href="Home.html" class="nav-logo">Ronin Dojo</a>
+                <a href="index.html" class="nav-logo">Ronin Dojo</a>
                 <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
                 <ul class="nav-menu" id="nav-menu">
-                    <li class="nav-item"><a href="Home.html" class="nav-link active">Homepage</a></li>
-                    <li class="nav-item"><a href="Studovna.html" class="nav-link">Studovna</a></li>
+                    <li class="nav-item"><a href="index.html" class="nav-link active">Homepage</a></li>
+                    <li class="nav-item"><a href="studovna.html" class="nav-link">Studovna</a></li>
                     <li class="nav-item"><a href="historie.html" class="nav-link">Historie</a></li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="dropdown-toggle">Více</a>
@@ -2574,6 +2545,30 @@
             });
         }
     });
+    </script>
+    <script>
+    (function() {
+        // Only show loading screen on first visit in this browser session
+        if (!sessionStorage.getItem('visited')) {
+            var loadingScreen = document.getElementById('loading-screen');
+            var loadingBar = document.getElementById('loading-bar');
+            document.body.style.overflow = 'hidden';
+            setTimeout(function() {
+                loadingBar.style.width = '100%';
+            }, 100); // Start bar animation
+            setTimeout(function() {
+                loadingScreen.classList.add('fade-out');
+                document.body.style.overflow = '';
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                }, 400);
+            }, 900); // Quick load
+            sessionStorage.setItem('visited', '1');
+        } else {
+            var loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) loadingScreen.style.display = 'none';
+        }
+    })();
     </script>
 </body>
 </html>
